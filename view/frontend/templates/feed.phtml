@@ -1,0 +1,302 @@
+<?php
+/**
+ * Copyright © Nokytech Themes 2022-present. All rights reserved.
+ */
+$feedData = $block->getFacebookFeed();
+$feed = $feedData['feed'] ?? [];
+$pageInfo = $feedData['page_info'] ?? [];
+$initialPosts = 12;
+$accentColor = $block->escapeHtml($block->getAccentColor());
+$layout = $block->escapeHtml($block->getLayout());
+$columns = $block->escapeHtml($block->getColumns());
+$columnsTablet = $block->escapeHtml($block->getColumnsTablet());
+$columnsMobile = $block->escapeHtml($block->getColumnsMobile());
+?>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<?php if ($layout == 'extreme'): ?>
+    <link rel="stylesheet" type="text/css" href="<?php echo $block->getViewFileUrl('Nokytech_FbNokyFeed::css/extreme.css'); ?>">
+<?php elseif ($layout == 'gallery'): ?>
+    <link rel="stylesheet" type="text/css" href="<?php echo $block->getViewFileUrl('Nokytech_FbNokyFeed::css/gallery.css'); ?>">
+<?php else: ?>
+    <link rel="stylesheet" type="text/css" href="<?php echo $block->getViewFileUrl('Nokytech_FbNokyFeed::css/standard.css'); ?>">
+<?php endif; ?>
+
+<script type="text/javascript" src="<?php echo $block->getViewFileUrl('Nokytech_FbNokyFeed::js/cff.js'); ?>"></script>
+
+<style>
+#viewMorePosts, #viewMorePosts:hover {
+background-color: <?php echo $accentColor; ?>;
+}
+.fb-post-share button:hover {
+color: <?php echo $accentColor; ?>;
+}
+a.link-clickable-fbnokyfeed {
+color: <?php echo $accentColor; ?>;
+}
+span.hashtage-fbnokyfeed {
+color: <?php echo $accentColor; ?>;
+}
+
+@media (min-width: 1024px) {
+    #fb-feed {
+        column-count: <?php echo $columns; ?>;
+    }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+    #fb-feed {
+        column-count: <?php echo $columnsTablet; ?>;
+    }
+}
+@media (max-width: 767px) {
+    #fb-feed {
+        column-count: <?php echo $columnsMobile; ?>;
+    }
+}
+</style>
+
+<div id="fb-feed" class="masonry" style="background-color: <?php echo $block->escapeHtml($block->getBgColor()); ?>; height: <?php echo $block->escapeHtml($block->getHeight()); ?>;">
+    <?php if (empty($feed)): ?>
+        <p><?php echo __('No feed data available. Please check the configuration.'); ?></p>
+    <?php else: ?>
+        <?php foreach ($feed as $index => $post): ?>
+            <div class="fb-post masonry-item" data-images='<?php echo isset($post['attachments']) ? $block->escapeHtml(json_encode($post['attachments']['data'], JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE)) : '[]'; ?>' style="<?php echo $index >= $initialPosts ? 'display: none;' : ''; ?>">
+                <div class="fb-post-container">
+                    <div class="fb-post-header">
+                        <?php if (!empty($pageInfo['picture']['data']['url'])): ?>
+                            <img src="<?php echo $block->escapeHtml($pageInfo['picture']['data']['url']); ?>" alt="Page Logo" class="fb-page-logo">
+                        <?php endif; ?>
+                        <div class="fb-page-info">
+                            <span class="fb-page-name"><?php echo $block->escapeHtml($pageInfo['name'] ?? ''); ?></span>
+                            <span class="fb-post-time"><?php echo $block->escapeHtml(date('F j, Y, g:i a', strtotime($post['created_time']))); ?></span>
+                        </div>
+                    </div>
+                   
+                    <p><?php echo isset($post['message']) ? formatPostText($post['message']) : ''; ?></p>
+
+                    <div class="fb-post-middle-image">
+                    <?php if (isset($post['full_picture'])): ?>
+                        <?php if (isset($post['attachments']['data'][0]['type']) && $post['attachments']['data'][0]['type'] == 'video_inline'): ?>
+                            <div class="video-icon">
+                                <i class="fas fa-video"></i>
+                            </div>
+                        <?php elseif (isset($post['attachments']['data'][0]['subattachments'])): ?>
+                            <div class="images-icon">
+                                <i class="fas fa-images"></i>
+                            </div>
+                        <?php endif; ?>
+                        <img src="<?php echo $block->escapeHtml($post['full_picture']); ?>" alt="Facebook Post Image" class="fb-post-image" onclick="openModal(this)">
+                    <?php endif; ?>
+                    </div>
+                    <div class="fb-post-footer">
+                        <div class="fb-post-stats">
+                            <span class="fb-post-likes"><i class="fas fa-thumbs-up"></i> <?php echo $block->escapeHtml($post['likes']['summary']['total_count'] ?? 0); ?></span>
+                            <span class="fb-post-comments"><i class="fas fa-comment"></i> <?php echo $block->escapeHtml($post['comments']['summary']['total_count'] ?? 0); ?></span>
+                            <span class="fb-post-shares"><i class="fas fa-share"></i> <?php echo $block->escapeHtml($post['shares']['count'] ?? 0); ?></span>
+                        </div>
+                        <div class="fb-post-share">
+                            <button onclick="sharePost('<?php echo $block->escapeHtml($post['id']); ?>')"><i class="fas fa-share-square"></i> <?php echo __('Share'); ?></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</div>
+
+<?php if (count($feed) > $initialPosts): ?>
+    <div class="view-more-container">
+        <button id="viewMorePosts" onclick="viewMorePosts()"><?php echo __('View More Posts'); ?></button>
+    </div>
+<?php endif; ?>
+
+<div id="imageModal" class="modal">
+    
+    <div class="modal-content">
+
+    <span class="close" onclick="closeModal()">&times;</span>
+
+        <div class="modal-image-container">
+            <img id="modalImage" src="" alt="Post Image" style="display: none;">
+            <video id="modalVideo" controls style="display: none;"></video>
+
+            <div class="prev" onclick="changeImage(-1)">&#10094;</div>
+            <div class="next" onclick="changeImage(1)">&#10095;</div>
+        </div>
+        <div class="modal-info">
+            <div class="modal-page-header">
+                <img id="modalPageLogo" src="" alt="Page Logo" class="modal-page-logo">
+                <div class="modal-page-info">
+                    <span id="modalPageName" class="modal-page-name"></span>
+                    <span id="modalPostTime" class="modal-post-time"></span>
+                </div>
+            </div>
+            <p id="modalMessage"></p>
+            <div id="modalStats" class="modal-post-stats">
+                <span id="modalLikes"><i class="fas fa-thumbs-up"></i> </span>
+                <span id="modalComments"><i class="fas fa-comment"></i> </span>
+                <span id="modalShares"><i class="fas fa-share"></i> </span>
+            </div>
+            <div class="fb-post-share modal-position">
+                <button onclick="sharePost('<?php echo $block->escapeHtml($post['id']); ?>')"><i class="fas fa-share-square"></i> <?php echo __('Share'); ?></button>
+            </div>
+
+        </div>
+        
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script type="text/javascript">
+let currentImageIndex = 0;
+let images = [];
+let initialPosts = <?php echo $initialPosts; ?>;
+let totalPosts = <?php echo count($feed); ?>;
+
+function sharePost(postId) {
+    var url = "https://www.facebook.com/" + postId;
+    var shareUrl = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(url);
+    window.open(shareUrl, 'facebook-share-dialog', 'width=800,height=600');
+    return false;
+}
+
+function openModal(image) {
+    var post = image.closest('.fb-post');
+    var dataImages = post.getAttribute('data-images');
+    try {
+        images = JSON.parse(dataImages);
+    } catch (error) {
+        console.error('Error parsing JSON:', error);
+        return;
+    }
+
+    let flattenedImages = [];
+    images.forEach(item => {
+        if (item.subattachments && item.subattachments.data) {
+            flattenedImages = flattenedImages.concat(item.subattachments.data);
+        } else {
+            flattenedImages.push(item);
+        }
+    });
+
+    images = flattenedImages;
+
+    var modalImage = document.getElementById('modalImage');
+    var modalVideo = document.getElementById('modalVideo');
+
+    if (images.length > 0) {
+        if (images[0].type === 'video_inline') {
+            modalImage.style.display = 'none';
+            modalVideo.style.display = 'block';
+            modalVideo.src = images[0].media.source;
+        } else {
+            modalImage.style.display = 'block';
+            modalVideo.style.display = 'none';
+            modalImage.src = images[0].media.image.src;
+        }
+    } else {
+        modalImage.src = '';
+    }
+
+    document.getElementById('modalPageLogo').src = post.querySelector('.fb-page-logo').src;
+    document.getElementById('modalPageName').textContent = post.querySelector('.fb-page-name').textContent;
+    document.getElementById('modalPostTime').textContent = post.querySelector('.fb-post-time').textContent;
+    
+    // Use the innerHTML of the already formatted post message in the modal
+    let postMessageHTML = post.querySelector('p').innerHTML;
+    document.getElementById('modalMessage').innerHTML = postMessageHTML;
+
+    document.getElementById('modalLikes').innerHTML = '<i class="fas fa-thumbs-up"></i> ' + post.querySelector('.fb-post-likes').textContent;
+    document.getElementById('modalComments').innerHTML = '<i class="fas fa-comment"></i> ' + post.querySelector('.fb-post-comments').textContent;
+    document.getElementById('modalShares').innerHTML = '<i class="fas fa-share"></i> ' + post.querySelector('.fb-post-shares').textContent;
+
+    var modal = document.getElementById('imageModal');
+    modal.style.display = 'block';
+
+    if (images.length > 1) {
+        document.querySelector('.prev').style.display = 'block';
+        document.querySelector('.next').style.display = 'block';
+    } else {
+        document.querySelector('.prev').style.display = 'none';
+        document.querySelector('.next').style.display = 'none';
+    }
+
+    currentImageIndex = 0;
+}
+
+// close modal
+window.onclick = function(event) {
+    var modal = document.getElementById('imageModal');
+    var modalContent = document.querySelector('.modal-content');
+
+    if (event.target === modal && !modalContent.contains(event.target)) {
+        closeModal();
+    }
+}
+
+function closeModal() {
+    var modal = document.getElementById('imageModal');
+    modal.style.display = 'none';
+    var modalVideo = document.getElementById('modalVideo');
+    modalVideo.pause(); // Pause the video if it's playing
+}
+
+function showImage(index) {
+    var modalImage = document.getElementById('modalImage');
+    var modalVideo = document.getElementById('modalVideo');
+    if (images.length > 0) {
+        if (images[index].type === 'video_inline') {
+            modalImage.style.display = 'none';
+            modalVideo.style.display = 'block';
+            modalVideo.src = images[index].media.source;
+        } else {
+            modalImage.style.display = 'block';
+            modalVideo.style.display = 'none';
+            modalImage.src = images[index].media.image.src;
+        }
+    }
+}
+
+function changeImage(n) {
+    currentImageIndex += n;
+    if (currentImageIndex >= images.length) {
+        currentImageIndex = 0;
+    } else if (currentImageIndex < 0) {
+        currentImageIndex = images.length - 1;
+    }
+    showImage(currentImageIndex);
+}
+
+function viewMorePosts() {
+    let posts = document.querySelectorAll('.fb-post');
+    let hiddenPosts = Array.from(posts).filter(post => post.style.display === 'none');
+
+    hiddenPosts.slice(0, initialPosts).forEach(post => post.style.display = 'inline-block');
+
+    if (hiddenPosts.length <= initialPosts) {
+        document.querySelector('.view-more-container').style.display = 'none';
+    }
+}
+
+</script>
+
+<?php
+//function for pragraphe line return - clickable links - noticable hastages
+function formatPostText($text) {
+    $text = htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
+    $text = str_replace('&#039;', "'", $text);
+    $text = preg_replace(
+        '/(https?:\/\/[^\s]+)/',
+        '<a href="$1" class="link-clickable-fbnokyfeed" target="_blank" >$1</a>',
+        $text
+    );
+    $text = preg_replace(
+        '/#(\w+)/',
+        '<span class="hashtage-fbnokyfeed" >#$1</span>',
+        $text
+    );
+    $text = nl2br($text);
+    return $text;
+}
+?>

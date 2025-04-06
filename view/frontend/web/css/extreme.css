@@ -1,0 +1,381 @@
+/* Extreme layout CSS styles */
+#fb-feed {
+    column-count: 3; /* Number of columns */
+    column-gap: 30px; /* Space between columns */
+    margin: 1.25rem;
+}
+
+.fb-post {
+    width: 100%;
+    margin-bottom: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 10px 10px 20px #8a8b8b47;
+    display: flex;
+    flex-direction: column;
+    break-inside: avoid-column;
+}
+.fb-post-container {
+    display: flex !important;
+    flex-direction: column;
+}
+.fb-post img.fb-post-image {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    cursor: pointer;
+    order: 1;
+}
+.fb-post-header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    order: 3;
+}
+.fb-post p {
+    order: 3;
+    padding-right: 2rem;
+    padding-left: 2rem;
+    margin-bottom: auto;
+    margin-top: auto;
+}
+
+.fb-post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    order: 4;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+
+
+
+
+
+
+.fb-page-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.fb-page-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.fb-page-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.fb-post-time {
+    font-size: 0.8em;
+    color: #888;
+}
+
+
+
+
+
+
+
+
+.fb-post-stats {
+    display: flex;
+    gap: 10px;
+    color: #555;
+    padding: 5px;
+}
+
+.fb-post-stats span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9em;
+}
+
+.fb-post-share button {
+    font-family: "poppins" !important;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.fb-post-share button:hover {
+    background-color: #fff;
+
+}
+
+/* Modal CSS */
+.modal {
+    align-content: center;
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 30%);
+    backdrop-filter: blur(10px);
+}
+
+.modal-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    position: relative;
+    margin: auto;
+    padding: 20px;
+    width: 65%;
+    max-width: 65%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-image-container {
+    flex: 1;
+    max-width: 70%;
+    position: relative;
+}
+
+.modal-image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    max-height: 90dvh;
+}
+
+.modal-info {
+    flex: 1;
+    max-width: 30%;
+    padding: 15px;
+}
+
+.modal-page-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.modal-page-logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.modal-page-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-page-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.modal-post-time {
+    font-size: 0.8em;
+    color: #888;
+}
+
+.modal-post-stats {
+    display: flex;
+    gap: 10px;
+    color: #555;
+    margin-top: 10px;
+}
+
+.modal-post-stats span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9em;
+}
+
+.close {
+    position: absolute;
+    top: 2px;
+    right: 15px;
+    color: #000000;
+    font-size: 30px;
+    cursor: pointer;
+    line-height: normal;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Navigation buttons */
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    user-select: none;
+    
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev {
+    left: 0;
+    border-radius: 0 3px 3px 0;
+}
+
+.prev:hover,
+.next:hover {
+    background-color: rgb(0 0 0 / 33%);
+}
+
+/* Initially hide the navigation buttons */
+.prev,
+.next {
+    display: none;
+}
+
+/* Remove debug display */
+.pre {
+    display: none;
+}
+
+/* image-video icon for posts */
+.video-icon,
+.images-icon {
+    position: absolute;
+    color: #ffffff;
+    filter: drop-shadow(1px 2px 15px black);
+    font-size: 20px;
+    padding: 10px;
+    display: flex;
+}
+
+/* View More Posts button */
+.view-more-container {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+#viewMorePosts {
+    font-family: "poppins" !important;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#viewMorePosts:hover {
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: rgb(0 0 0 / 18%) 0 4px 12px;
+    transform: translateY(-2px);
+}
+
+
+
+
+
+
+
+
+
+/*testing only to be removed later*/
+.modal-page-header {
+    display: none;
+}
+.fb-post-header {
+    display: none;
+}
+.fb-post p {
+    padding-top: 10px;
+}
+.modal-image-container img {
+    object-fit: cover;
+}
+.fb-post:hover {
+    scale: 1.02;
+}
+.fb-post {
+    transition: 0.8s;
+}
+.fb-post-share button {
+    background-color: #a37e2c00;
+    color: #555;
+}
+
+/*add later for all*/
+
+a.link-clickable-fbnokyfeed:hover {
+    color: #555 !important;
+}
+
+
+/*responsive update*/
+/*mobile-tablette*/
+@media (max-width: 1023px) {
+    .modal-content {
+        width: 85%;
+        max-width: 85%;
+        flex-direction: column;
+    }
+    .modal-image-container {
+        max-width: 100%;
+        margin-top: 20px;
+    }
+    .modal-info {
+        max-width: 100%;
+    }
+    .modal-image-container img {
+        max-height: 70dvh;
+    }
+    .modal-info {
+        display: none;
+    }
+}
+
+/*share button inside the modal */
+.fb-post-share.modal-position {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
+.modal-image-container {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
+
+.modal-image-container video {
+    border-radius: 8px;
+}

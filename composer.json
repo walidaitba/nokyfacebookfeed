@@ -1,0 +1,27 @@
+{
+    "name": "nokytech/fb-noky-feed",
+    "description": "FB Noky Feed module for Magento",
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [
+        "proprietary"
+    ],
+    "authors": [
+        {
+            "name": "Nokytech walid",
+            "email": "walid.a@nokytech.fr",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.4"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Nokytech\\FbNokyFeed\\": ""
+        }
+    }
+}

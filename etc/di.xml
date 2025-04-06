@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Nokytech Themes 2022-present. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Asset\Source">
+        <arguments>
+            <argument name="preference" xsi:type="string">Nokytech_FbNokyFeed::images/logonokytech.png</argument>
+        </arguments>
+    </type>
+</config>

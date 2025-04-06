@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Nokytech Themes 2022-present. All rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/system_file.xsd">
+    <system>
+        <tab id="nokytech" translate="label" sortOrder="100">
+            <label>Nokytech</label>
+        </tab>
+        <section id="fbnokyfeed" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>FB Noky Feed</label>
+            <tab>nokytech</tab>
+            <resource>Nokytech_FbNokyFeed::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="access_token" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Facebook Access Token</label>
+                    <comment>Enter your Facebook Access Token</comment>
+                </field>
+                <field id="page_id" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Facebook Page ID</label>
+                    <comment>Enter your Facebook Page ID</comment>
+                </field>
+                <field id="number" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Number of Posts</label>
+                    <comment>Enter the number of posts to display</comment>
+                </field>
+                <field id="layout" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Layout</label>
+                    <comment>Choose layout style</comment>
+                    <source_model>Nokytech\FbNokyFeed\Model\Config\Source\LayoutOptions</source_model>
+                </field>
+                <field id="columns" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Number of Columns (desktop)</label>
+                    <comment>Enter the number of columns for desktop</comment>
+                </field>
+                <field id="columns_tablet" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Number of Columns (Tablet)</label>
+                    <comment>Enter the number of columns for tablet</comment>
+                </field>
+                <field id="columns_mobile" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Number of Columns (Mobile)</label>
+                    <comment>Enter the number of columns for mobile</comment>
+                </field>
+                <field id="height" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Height</label>
+                    <comment>Enter the height in pixels (e.g., 600px)</comment>
+                </field>
+                <field id="bgcolor" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Background Color</label>
+                    <comment>Enter the background color in hex (e.g., #ddd)</comment>
+                </field>
+                <field id="accent_color" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Accent Color</label>
+                    <comment>Select the accent color</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

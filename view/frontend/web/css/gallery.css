@@ -1,0 +1,297 @@
+/* standerd layout CSS styles */
+
+#fb-feed {
+    column-count: 3; /* Number of columns */
+    column-gap: 30px; /* Space between columns */
+    margin: 40px;
+}
+
+.fb-post {
+    display: inline-block; /* Important for column layout */
+    width: 100%; /* Ensures the post takes the full width of the column */
+    margin-bottom: 30px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 10px 10px 20px #babecc52, -10px -10px 20px #ffffffd4;
+    break-inside: avoid-column;
+}
+.fb-post-container {
+    display: flex !important;
+    flex-direction: column;
+}
+.fb-post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.fb-page-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.fb-page-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.fb-page-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.fb-post-time {
+    font-size: 0.8em;
+    color: #888;
+}
+
+.fb-post img.fb-post-image {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+
+
+.fb-post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+.fb-post-stats {
+    display: flex;
+    gap: 10px;
+    color: #555;
+    padding: 5px;
+}
+
+.fb-post-stats span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9em;
+}
+
+.fb-post-share button {
+    font-family: "poppins" !important;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.fb-post-share button:hover {
+    background-color: #fff;
+
+}
+
+
+
+/* Modal CSS */
+
+.modal {
+    align-content: center;
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 30%);
+    backdrop-filter: blur(10px);
+}
+
+.modal-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    position: relative;
+    margin: auto;
+    padding: 20px;
+    width: 65%;
+    max-width: 65%;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-image-container {
+    flex: 1;
+    max-width: 70%;
+    position: relative;
+}
+
+.modal-image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    max-height: 90dvh;
+}
+
+.modal-info {
+    flex: 1;
+    max-width: 30%;
+    padding: 15px;
+}
+
+.modal-page-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.modal-page-logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.modal-page-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-page-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.modal-post-time {
+    font-size: 0.8em;
+    color: #888;
+}
+
+.modal-post-stats {
+    display: flex;
+    gap: 10px;
+    color: #555;
+    margin-top: 10px;
+}
+
+.modal-post-stats span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9em;
+}
+
+.close {
+    position: absolute;
+    top: -10px;
+    right: 15px;
+    color: #000000;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Navigation buttons */
+
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    user-select: none;
+    
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev {
+    left: 0;
+    border-radius: 0 3px 3px 0;
+}
+
+.prev:hover,
+.next:hover {
+    background-color: rgb(0 0 0 / 33%);
+}
+
+/* Initially hide the navigation buttons */
+.prev,
+.next {
+    display: none;
+}
+
+/* Remove debug display */
+.pre {
+    display: none;
+}
+
+/* image-video icon for posts */
+
+.video-icon,
+.images-icon {
+    position: absolute;
+    color: #ffffff;
+    filter: drop-shadow(1px 2px 15px black);
+    font-size: 20px;
+    padding: 10px;
+    display: flex;
+}
+
+/* View More Posts button */
+.view-more-container {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+#viewMorePosts {
+    font-family: "poppins" !important;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#viewMorePosts:hover {
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: rgb(0 0 0 / 18%) 0 4px 12px;
+    transform: translateY(-2px);
+}
+
+
+
+
+
+/*test gallery.css*/
+.fb-post p {
+    display: none;
+}
